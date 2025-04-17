@@ -1,0 +1,163 @@
+/* static/styles.css */
+
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f9f9f9;
+    width: 100%;
+}
+
+header {
+    background-color: #333;
+    color: white;
+    padding: 10px 20px;
+    text-align: center;
+}
+
+header h1 {
+    margin: 0;
+}
+
+header form {
+    margin-top: 10px;
+}
+
+header input[type="text"] {
+    padding: 5px;
+    width: 15em;
+}
+
+header button {
+    padding: 5px 10px;
+    background-color: #555;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+
+header button:hover {
+    background-color: #777;
+}
+
+main {
+    padding: 20px;
+}
+
+table {
+    width: fit-content;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+}
+
+table th, table td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+    /* 余分な横スクロールを防ぐために単語の折り返しを有効に */
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+    word-break: normal;
+}
+
+table th {
+    background-color: #f2f2f2;
+}
+
+table tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+table tr:hover {
+    background-color: #f1f1f1;
+}
+
+.pagination {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.pagination a {
+    margin: 0 5px;
+    text-decoration: none;
+    color: #333;
+}
+
+.pagination a:hover {
+    color: #555;
+}
+
+footer {
+    background-color: #333;
+    color: white;
+    text-align: center;
+    padding: 10px 20px;
+    bottom: 0;
+    width: auto;
+}
+
+/* スマホなど狭い画面用のレスポンシブ対応 */
+@media (max-width: 600px) {
+    header input[type="text"] {
+        width: 10em;
+    }
+
+    /* テーブルを固定レイアウトにして、セル内でテキストが折り返すように */
+    table th, table td {
+        padding: 6px;
+        /* セルの幅に収まるようにテキストを折り返す */
+        overflow-wrap: break-word;
+        word-wrap: break-word;
+        word-break: break-all;
+    }
+}
+
+/* グリッドレイアウトのスタイル */
+.grid-container {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0px;
+    margin-top: 20px;
+}
+
+.grid-item {
+    border: 1px solid #ddd;
+    padding: 10px;
+    text-align: center;
+    background-color: #fff;
+}
+
+.grid-item img {
+    max-width: 100%;
+    height: auto;
+}
+
+.grid-item h3 {
+    font-size: 0.8em;
+    margin: 10px 0;
+}
+
+.grid-item p {
+    font-size: 1em;
+    margin: 5px 0;
+}
+
+/* レスポンシブ対応 */
+@media screen and (max-width: 1024px) {
+    .grid-container {
+        grid-template-columns: repeat(5, 1fr);
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .grid-container {
+        grid-template-columns: repeat(4, 1fr);
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .grid-container {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+

@@ -1,0 +1,8 @@
+INFO:     Started server process [5523]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+INFO:     Uvicorn running on http://0.0.0.0:5000 (Press CTRL+C to quit)
+INFO:     10.1.0.4:52998 - "GET /search?q=Galaxy%20s8&page=2&closed=1 HTTP/1.1" 200 OK
+INFO:     10.1.0.4:38726 - "GET /search?q=Galaxy%20s8&page=1&closed=1 HTTP/1.1" 200 OK
+INFO:     10.1.0.4:59492 - "GET / HTTP/1.1" 200 OK
+INFO:     10.1.0.4:59492 - "GET /search?q=rtx3070&closed=0 HTTP/1.1" 200 OK

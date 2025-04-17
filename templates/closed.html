@@ -1,0 +1,36 @@
+{% extends "layout.html" %}
+
+{% block content %}
+    <h2>落札履歴: {{ data['search_query'] }}</h2>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>画像</th>
+                <th>タイトル</th>
+                <th>落札価格</th>
+                <th>終了日時</th>
+                <th>入札数</th>
+                <th>送料</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for item in data['items'] %}
+                <tr>
+                    <td><img src="{{ item['img'] }}" width="100" height="100" alt="{{ item['title'] }}"></td>
+                    <td><a href="{{ item['link'] }}" target="_blank">{{ item['title'] }}</a></td>
+                    <td>{{ item['price'] }}</td>
+                    <td>{{ item['remaining_time'] }}</td>
+                    <td>{{ item['bid_count'] }}</td>
+                    <td>{{ item['shipping_fee'] }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <div class="pagination">
+        {% if data['current_page'] > 1 %}
+            <a href="{{ url_for('closed_search', q=data['search_query'], page=data['current_page']-1) }}">前へ</a>
+        {% endif %}
+        <span>ページ {{ data['current_page'] }}</span>
+        <a href="{{ url_for('closed_search', q=data['search_query'], page=data['current_page']+1) }}">次へ</a>
+    </div>
+{% endblock %}

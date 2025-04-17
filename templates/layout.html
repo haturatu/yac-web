@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>YAC</title>
+    <link rel="stylesheet" href="/static/styles.css">
+</head>
+<body>
+    <header>
+        <h1>YAC</h1>
+        <form action="/search" method="get">
+            <input type="text" name="q" placeholder="検索キーワード" value="{{ data.search_query if data and data.search_query else '' }}">
+            <p>
+            <label>
+                <input type="radio" name="closed" value="0" {% if not data or not data.closed %}checked{% endif %}> 現在のオークション
+            </label>
+            <label>
+                <input type="radio" name="closed" value="1" {% if data and data.closed %}checked{% endif %}> 落札履歴
+            </label>
+            <button type="submit">検索</button>
+        </form>
+    </header>
+    <main>
+        {% block content %}{% endblock %}
+    </main>
+    <footer>
+        <p>&copy; 2025 YAC</p>
+    </footer>
+</body>
+</html>

@@ -1,0 +1,64 @@
+{% extends "layout.html" %}
+
+{% block content %}
+    <div class="pagination">
+        {% if data['current_page'] > 1 %}
+            <a href="/search?q={{ data['search_query'] }}&page={{ data['current_page'] - 1 }}&closed={{ '1' if data['closed'] else '0' }}">前へ</a>
+        {% endif %}
+        <span>ページ {{ data['current_page'] }}</span>
+        <a href="/search?q={{ data['search_query'] }}&page={{ data['current_page'] + 1 }}&closed={{ '1' if data['closed'] else '0' }}">次へ</a>
+    </div>
+
+    <h2>検索結果: {{ data['search_query'] }}</h2>
+    <form method="get" action="/search">
+        <input type="hidden" name="q" value="{{ data['search_query'] }}">
+        <input type="hidden" name="closed" value="{{ '1' if data['closed'] else '0' }}">
+        <label>
+            価格範囲:
+            <input type="number" name="price_min" placeholder="最小価格" value="{{ data['price_min'] if data['price_min'] is not none else '' }}">
+            〜
+            <input type="number" name="price_max" placeholder="最大価格" value="{{ data['price_max'] if data['price_max'] is not none else '' }}">
+        </label>
+        {% if not data['closed'] %}
+        <label>
+            終了時間:
+            <input type="number" name="auchours" placeholder="時間以内に終了" value="{{ data['auchours'] if data['auchours'] is not none else '' }}">
+        </label>
+        {% endif %}
+        <label>
+            ソート:
+            <select name="sort_by">
+                <option value="">選択なし</option>
+                <option value="price" {% if data['sort_by'] == 'price' %}selected{% endif %}>価格</option>
+                <option value="time" {% if data['sort_by'] == 'time' %}selected{% endif %}>残り時間</option>
+                <option value="bids" {% if data['sort_by'] == 'bids' %}selected{% endif %}>入札数</option>
+            </select>
+            <select name="sort_order">
+                <option value="asc" {% if data['sort_order'] == 'asc' %}selected{% endif %}>昇順</option>
+                <option value="desc" {% if data['sort_order'] == 'desc' %}selected{% endif %}>降順</option>
+            </select>
+        </label>
+        <button type="submit">適用</button>
+    </form>
+    
+    <div class="grid-container">
+        {% for item in data['items'] %}
+        <div class="grid-item">
+            <img src="{{ item['img'] }}" width="100" height="100" alt="{{ item['title'] }}">
+            <h3><a href="{{ item['link'] }}" target="_blank">{{ item['title']|truncate(25, True, '...') }}</a></h3>
+            <p>価格:<strong style="font-size: 1.5em;">{{ item['price'] }}</strong></p>
+            <p>残り時間: {{ item['remaining_time'] }}</p>
+            <p>入札数: {{ item['bid_count'] }}</p>
+            <p>送料: {{ item['shipping_fee'] }}</p>
+        </div>
+        {% endfor %}
+    </div>
+
+    <div class="pagination">
+        {% if data['current_page'] > 1 %}
+            <a href="/search?q={{ data['search_query'] }}&page={{ data['current_page'] - 1 }}&closed={{ '1' if data['closed'] else '0' }}">前へ</a>
+        {% endif %}
+        <span>ページ {{ data['current_page'] }}</span>
+        <a href="/search?q={{ data['search_query'] }}&page={{ data['current_page'] + 1 }}&closed={{ '1' if data['closed'] else '0' }}">次へ</a>
+    </div>
+{% endblock %}

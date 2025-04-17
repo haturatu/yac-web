@@ -1,0 +1,26 @@
+{% extends "layout.html" %}
+
+{% block content %}
+    <h2>{{ item['title'] }}</h2>
+    <div class="item-details">
+        <div class="images">
+            {% for img in item['images'] %}
+                <img src="{{ img }}" alt="{{ item['title'] }}">
+            {% endfor %}
+        </div>
+        <div class="info">
+            <p>現在価格: {{ item['current_price'] }}</p>
+            <p>残り時間: {{ item['remaining_time'] }}</p>
+            <p>出品者: {{ item['seller'] }}</p>
+            <p>商品説明: {{ item['description'] }}</p>
+        </div>
+        <div class="bids">
+            <h3>入札履歴</h3>
+            <ul>
+                {% for bid in item['bids'] %}
+                    <li>{{ bid['user'] }} - {{ bid['price'] }} ({{ bid['time'] }})</li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+{% endblock %}

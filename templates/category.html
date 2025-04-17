@@ -1,0 +1,79 @@
+{% extends "layout.html" %}
+
+{% block content %}
+    <h2>カテゴリ: {{ data['category'] }}</h2>
+    <ul class="Products__items">
+        {% for item in data['items'] %}
+            <li class="Product">
+                <div class="Product__image">
+                    <a class="Product__imageLink js-browseHistory-add js-rapid-override" href="{{ item['link'] }}" target="_blank" rel="noopener">
+                        <img class="Product__imageData" src="{{ item['img'] }}" width="100" height="100" alt="{{ item['title'] }}">
+                        <div class="Product__iconWrap">
+                            {% if item['is_new'] %}
+                                <span class="Product__icon Product__icon--new">New!!</span>
+                            {% endif %}
+                            {% if item['is_free_shipping'] %}
+                                <span class="Product__icon Product__icon--freeShipping">送料無料</span>
+                            {% endif %}
+                        </div>
+                    </a>
+                    <div class="Product__button js-watch-button notlogin">
+                        <a class="Button Button--watch is-off cl-noclick-log js-auc-ya-event" href="#dummy">ウォッチ</a>
+                    </div>
+                    <div class="Layer js-watch-button-layer"></div>
+                </div>
+                <div class="Product__detail">
+                    <h3 class="Product__title">
+                        <a class="Product__titleLink js-browseHistory-add js-rapid-override" href="{{ item['link'] }}" target="_blank" rel="noopener">{{ item['title'] }}</a>
+                    </h3>
+                    <div class="Product__priceInfo">
+                        <span class="Product__price">
+                            <span class="Product__label">現在</span>
+                            <span class="Product__priceValue u-textRed">{{ item['price'] }}</span>
+                        </span>
+                        {% if item['buy_now_price'] %}
+                            <span class="Product__price">
+                                <span class="Product__label">即決</span>
+                                <span class="Product__priceValue">{{ item['buy_now_price'] }}</span>
+                            </span>
+                        {% endif %}
+                        <p class="Product__postage">
+                            {% if item['shipping_fee'] %}
+                                ＋送料{{ item['shipping_fee'] }}
+                            {% else %}
+                                送料未定
+                            {% endif %}
+                        </p>
+                    </div>
+                    <dl class="Product__otherInfo">
+                        <div class="Product__bidWrap">
+                            <dt class="Product__label"><img src="https://s.yimg.jp/images/auc/pc/search/image/2.0.1/icon_hammer.svg" width="16" height="16" alt="入札"></dt>
+                            <dd class="Product__bid">{{ item['bid_count'] }}</dd>
+                        </div>
+                        <div class="Product__timeWrap">
+                            <dt class="Product__label"><img src="https://s.yimg.jp/images/auc/pc/search/image/2.0.1/icon_time.svg" width="16" height="16" alt="残り"></dt>
+                            <dd class="Product__time">{{ item['remaining_time'] }}</dd>
+                        </div>
+                    </dl>
+                    <div class="Product__foot">
+                        {% if item['featured'] %}
+                            <div class="Product__featured">
+                                <span class="u-fontSize10">注目度 No.{{ item['featured'] }}</span>
+                            </div>
+                        {% endif %}
+                        <div class="Product__buttonWrap">
+                            <a class="Button Button--small Button--arrow Button--link" href="{{ item['link'] }}">最安値を見る</a>
+                        </div>
+                    </div>
+                </div>
+            </li>
+        {% endfor %}
+    </ul>
+    <div class="pagination">
+        {% if data['current_page'] > 1 %}
+            <a href="{{ url_for('category', category_id=data['category'], page=data['current_page']-1) }}">前へ</a>
+        {% endif %}
+        <span>ページ {{ data['current_page'] }}</span>
+        <a href="{{ url_for('category', category_id=data['category'], page=data['current_page']+1) }}">次へ</a>
+    </div>
+{% endblock %}
